@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="#">Absence</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/student/">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/groupe/">Groupes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/matiere/" tabindex="-1" aria-disabled="true">Matiere</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="panel panel-default" th:fragment="addUserData">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add Students Data</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="#" th:action="@{/student/addstudent}" th:object="${studentModel}" method="post"
+                            class="form-horizontal" id="addUserForm">
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">Nom</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Nom"
+                                        th:field="*{name}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="LastName" class="col-sm-2 control-label">Prenom</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="LastName" placeholder="Prenom"
+                                        th:field="*{prenom}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputSalary" class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="email" placeholder="e-mail"
+                                        th:field="*{email}" />
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="inputSalary" class="col-sm-2 control-label">Date</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="ds" placeholder="2012/12/12"
+                                        th:field="*{dateNaissance}" />
+                                </div>
+                            </div> -->
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary" id="btnAddUser">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="panel panel-default" th:fragment="listUserData" id="listUserData">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">List Students Data</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Matricule</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="student : ${studentlist}">
+                                        <td th:text="${student.matricule}">Matricule</td>
+                                        <td th:text="${student.name}">Username</td>
+                                        <td th:text="${student.email}">Name</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm btn-rounded">
+                                                <i class="material-icons">
+                                                    delete
+                                                </i>
+
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+        <!-- Modal for Add Users -->
+        <div class="modal fade" id="add-students-confirmation-modal" tabindex="-1" role="dialog"
+            aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content-cust">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Add User</h1>
+                            <button type="button" class="close pull-right custom-panel-close" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="panel-body">
+
+                            <!--                        <form action="#" th:action="@{/admin/addstudent}" th:object="${studentModel}" method="post"-->
+                            <!--                              id="addUserForm2">-->
+                            <!--                            <div class="form-group">-->
+                            <!--                                <div class="row">-->
+                            <!--                                    <div class="col-sm-4">-->
+                            <!--                                        <label for="inputFirstName">First Name</label> <input type="text"-->
+                            <!--                                                                                              class="form-control" id="inputId2" placeholder="First Name"-->
+                            <!--                                                                                              th:field="*{matricule}" />-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-sm-4">-->
+                            <!--                                        <label for="inputFirstName">Middle Name</label> <input type="text"-->
+                            <!--                                                                                               class="form-control" id="inputName2" placeholder="First Name"-->
+                            <!--                                                                                               th:field="*{name}" />-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-sm-4">-->
+                            <!--                                        <label for="inputFirstName">Last Name</label> <input type="text"-->
+                            <!--                                                                                             class="form-control" id="inputSalary2" placeholder="First Name"-->
+                            <!--                                                                                             th:field="*{email}" />-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+
+                            <!--                            </div>-->
+
+
+                            <!--                        </form>-->
+                            The student will be added with <mark>studentname as email and a random password is
+                                generated.</mark>
+                        </div>
+                        <div class="panel-footer clearfix">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-default" id="btnCancelAddUsers"
+                                    data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="btnYesAddUsers"
+                                    data-dismiss="modal">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
