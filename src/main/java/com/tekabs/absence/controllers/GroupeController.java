@@ -37,7 +37,6 @@ public class GroupeController {
 
     @PostMapping(path = "/addgroupe")
     public String addGroupe(@Validated Groupe groupe, BindingResult result, Model model) {
-        System.out.println("groupe>> "+groupe);
         if (result.hasErrors()) {
             model.addAttribute("groupeModel", groupe);
         } else {
@@ -90,9 +89,9 @@ public class GroupeController {
     public ModelAndView getGroupStudents(@PathVariable("id") long id) {
         ModelAndView model = new ModelAndView("groupe-students-index");
         Groupe mg = groupeRepository.findById(id).get();
-        // System.out.println(">>>>>" +mg.getclasseStudents());
+        // // System.out.println(">>>>>" +mg.getclasseStudents());
         model.addObject("groupInfo", mg);
-        System.out.println(mg);
+        // System.out.println(mg);
         return model;
     }
 }

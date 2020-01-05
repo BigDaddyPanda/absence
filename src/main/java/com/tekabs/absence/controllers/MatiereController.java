@@ -33,7 +33,7 @@ public class MatiereController {
     @PostMapping(path = "/addmatiere")
     public String addMatiere(@Validated Matiere matiere, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            System.out.println("(>>>>" + result);
+            // System.out.println("(>>>>" + result);
             model.addAttribute("matiereModel", matiere);
         } else {
             model.addAttribute("matiereModel", new Matiere());

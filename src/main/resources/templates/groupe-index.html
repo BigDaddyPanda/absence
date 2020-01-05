@@ -43,7 +43,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/matiere/" tabindex="-1" aria-disabled="true">Matiere</a>
                 </li>
-            </ul> 
+            </ul>
         </div>
     </nav>
     <div class="container">
@@ -75,10 +75,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">Nom Complet</label>
-                                <select th:field="*{classeMatieres}" class="form-control js-example-basic-multiple" name="states[]" multiple="multiple">
-                                    <option th:each="s: ${matierelist}" th:value="${s}" th:text="${s.label}"></option>
-                                </select>
+                                <label for="inputName" class="col-sm-2 control-label">Matieres Etudiés</label>
+                                <div class="col-sm-10">
+                                    <select th:field="*{classeMatieres}" class="form-control js-example-basic-multiple"
+                                        multiple="multiple">
+                                        <option th:each="s: ${matierelist}" th:value="${s.id}" th:text="${s.label}">
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -107,7 +111,8 @@
                                         <th style="width: 5%;">#</th>
                                         <th style="width: 25%;">Label</th>
                                         <th style="width: 35%;">Nom Complet</th>
-                                        <th class="text-center" style="width: 35%;">Actions</th>
+                                        <th style="width: 15%;">Nb. Matières</th>
+                                        <th class="text-center" style="width: 20%;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,6 +120,7 @@
                                         <td th:text="${groupe.id}">id</td>
                                         <td th:text="${groupe.label}">label</td>
                                         <td th:text="${groupe.nomComplet}">nomComplet</td>
+                                        <td th:text="${#lists.size(groupe.classeMatieres)}">nomComplet</td>
                                         <td th:action="@{/groupe/addgroupe}">
                                             <div class="row justify-content-around" role="group"
                                                 aria-label="Basic example">

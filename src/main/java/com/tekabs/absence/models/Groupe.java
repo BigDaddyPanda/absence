@@ -32,13 +32,13 @@ public class Groupe {
 
     @ManyToMany
     @JoinTable(name = "classe_matiere", joinColumns = @JoinColumn(name = "groupe_id"), inverseJoinColumns = @JoinColumn(name = "matiere_id"))
-    private List<Student> classeMatieres;
+    private List<Matiere> classeMatieres;
 
     public Groupe() {
     }
 
     public Groupe(Long id, String label, String nomComplet, List<Student> classeStudents,
-            List<Student> classeMatieres) {
+            List<Matiere> classeMatieres) {
         this.id = id;
         this.label = label;
         this.nomComplet = nomComplet;
@@ -78,11 +78,11 @@ public class Groupe {
         this.classeStudents = classeStudents;
     }
 
-    public List<Student> getClasseMatieres() {
+    public List<Matiere> getClasseMatieres() {
         return this.classeMatieres;
     }
 
-    public void setClasseMatieres(List<Student> classeMatieres) {
+    public void setClasseMatieres(List<Matiere> classeMatieres) {
         this.classeMatieres = classeMatieres;
     }
 
@@ -106,7 +106,7 @@ public class Groupe {
         return this;
     }
 
-    public Groupe classeMatieres(List<Student> classeMatieres) {
+    public Groupe classeMatieres(List<Matiere> classeMatieres) {
         this.classeMatieres = classeMatieres;
         return this;
     }
@@ -138,7 +138,7 @@ public class Groupe {
                     + "'" + ", classeStudents='" + getClasseStudents().size() + "'" + ", classeMatieres='"
                     + getClasseMatieres().size() + "'" + "}";
         } catch (Exception e) {
-            System.out.println(getClasseMatieres());
+            // System.out.println(getClasseMatieres());
             x = "><";
         }
         return x;

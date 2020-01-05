@@ -31,7 +31,7 @@ public class UserController {
         n.setName(name);
         n.setEmail(email);
         userRepository.save(n);
-        System.out.println("Adding " + name);
+        // System.out.println("Adding " + name);
         return "Saved";
     }
 
