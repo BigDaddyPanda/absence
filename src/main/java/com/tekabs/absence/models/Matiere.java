@@ -1,29 +1,39 @@
 package com.tekabs.absence.models;
 
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Matiere {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "matiere_id")
     private long id;
     private String label;
     private float nombreHeure;
 
-    public Matiere(long id, String label, float nombreHeure) {
+    @ManyToMany(mappedBy = "classeMatieres")
+    private List<Groupe> matiereClasses;
+
+    public Matiere() {
+    }
+
+    public Matiere(long id, String label, float nombreHeure, List<Groupe> matiereClasses) {
         this.id = id;
         this.label = label;
         this.nombreHeure = nombreHeure;
+        this.matiereClasses = matiereClasses;
     }
 
-    public Matiere() {
-	}
-
-	public long getId() {
-        return id;
+    public long getId() {
+        return this.id;
     }
 
     public void setId(long id) {
@@ -31,7 +41,7 @@ public class Matiere {
     }
 
     public String getLabel() {
-        return label;
+        return this.label;
     }
 
     public void setLabel(String label) {
@@ -39,10 +49,62 @@ public class Matiere {
     }
 
     public float getNombreHeure() {
-        return nombreHeure;
+        return this.nombreHeure;
     }
 
     public void setNombreHeure(float nombreHeure) {
         this.nombreHeure = nombreHeure;
     }
+
+    public List<Groupe> getMatiereClasses() {
+        return this.matiereClasses;
+    }
+
+    public void setMatiereClasses(List<Groupe> matiereClasses) {
+        this.matiereClasses = matiereClasses;
+    }
+
+    public Matiere id(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Matiere label(String label) {
+        this.label = label;
+        return this;
+    }
+
+    public Matiere nombreHeure(float nombreHeure) {
+        this.nombreHeure = nombreHeure;
+        return this;
+    }
+
+    public Matiere matiereClasses(List<Groupe> matiereClasses) {
+        this.matiereClasses = matiereClasses;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Matiere)) {
+            return false;
+        }
+        Matiere matiere = (Matiere) o;
+        return id == matiere.id && Objects.equals(label, matiere.label) && nombreHeure == matiere.nombreHeure
+                && Objects.equals(matiereClasses, matiere.matiereClasses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, label, nombreHeure, matiereClasses);
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", label='" + getLabel() + "'" + ", nombreHeure='" + getNombreHeure()
+                + "'" + ", matiereClasses='" + getMatiereClasses().size() + "'" + "}";
+    }
+
 }

@@ -2,6 +2,7 @@ package com.tekabs.absence.controllers;
 
 import com.tekabs.absence.models.Groupe;
 import com.tekabs.absence.repositories.GroupeRepository;
+import com.tekabs.absence.repositories.MatiereRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,48 +22,56 @@ public class GroupeController {
     @Autowired
     GroupeRepository groupeRepository;
 
+    @Autowired
+    MatiereRepository matiereRepository;
+
     @GetMapping(path = "/")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("groupe-index");
         mv.addObject("groupeModel", new Groupe());
         mv.addObject("groupelist", groupeRepository.findAll());
+        mv.addObject("matierelist", matiereRepository.findAll());
         return mv;
         // return groupeRepository.findAll();
     }
 
     @PostMapping(path = "/addgroupe")
     public String addGroupe(@Validated Groupe groupe, BindingResult result, Model model) {
+        System.out.println("groupe>> "+groupe);
         if (result.hasErrors()) {
-            System.out.println("Wtf");
-            return "groupe-index";
+            model.addAttribute("groupeModel", groupe);
+        } else {
+            model.addAttribute("groupeModel", new Groupe());
+            groupeRepository.save(groupe);
         }
-        groupeRepository.save(groupe);
-        model.addAttribute("groupeModel", new Groupe());
         model.addAttribute("groupelist", groupeRepository.findAll());
+        model.addAttribute("matierelist", matiereRepository.findAll());
         return "groupe-index";
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView setToUpdateGroupe(@PathVariable("id") long id) {
         ModelAndView model = new ModelAndView("groupe-index");
-        model.addObject("isedit", true);
+        model.addObject("isEdit", true);
+        model.addObject("groupId", id);
         model.addObject("groupeModel", groupeRepository.findById(id));
         model.addObject("groupelist", groupeRepository.findAll());
+        model.addObject("matierelist", matiereRepository.findAll());
         return model;
     }
 
     @PostMapping("/update/{id}")
     public String updateGroupe(@PathVariable("id") long id, @Validated Groupe groupe, BindingResult result,
             Model model) {
+        model.addAttribute("groupelist", groupeRepository.findAll());
+        model.addAttribute("matierelist", matiereRepository.findAll());
         if (result.hasErrors()) {
             groupe.setId(id);
-        } else {
-            groupeRepository.save(groupe);
-
+            model.addAttribute("groupeModel", groupe);
+            return "groupe-index";
         }
-        // return "groupe-index";
-        // model.addAttribute("groupeModel", groupeRepository.findById(id));
-        model.addAttribute("groupelist", groupeRepository.findAll());
+        model.addAttribute("groupeModel", new Groupe());
+        groupeRepository.save(groupe);
         return "groupe-index";
     }
 
@@ -73,6 +82,17 @@ public class GroupeController {
         groupeRepository.delete(groupe);
         model.addAttribute("groupeModel", new Groupe());
         model.addAttribute("groupelist", groupeRepository.findAll());
+        model.addAttribute("matierelist", matiereRepository.findAll());
         return "groupe-index";
+    }
+
+    @GetMapping("/group-students/{id}")
+    public ModelAndView getGroupStudents(@PathVariable("id") long id) {
+        ModelAndView model = new ModelAndView("groupe-students-index");
+        Groupe mg = groupeRepository.findById(id).get();
+        // System.out.println(">>>>>" +mg.getclasseStudents());
+        model.addObject("groupInfo", mg);
+        System.out.println(mg);
+        return model;
     }
 }

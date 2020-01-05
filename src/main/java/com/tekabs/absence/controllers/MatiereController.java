@@ -33,21 +33,24 @@ public class MatiereController {
     @PostMapping(path = "/addmatiere")
     public String addMatiere(@Validated Matiere matiere, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            System.out.println("Wtf");
-            return "matiere-index";
+            System.out.println("(>>>>" + result);
+            model.addAttribute("matiereModel", matiere);
+        } else {
+            model.addAttribute("matiereModel", new Matiere());
         }
-        System.out.println(matiere);
         matiereRepository.save(matiere);
-        model.addAttribute("matiereModel", new Matiere());
         model.addAttribute("matierelist", matiereRepository.findAll());
         return "matiere-index";
     }
 
-    @PostMapping("/set/{id}")
-    public String setToUpdateMatiere(@PathVariable("id") long id, BindingResult result, Model model) {
-        model.addAttribute("matiereModel", matiereRepository.findById(id));
-        model.addAttribute("matierelist", matiereRepository.findAll());
-        return "matiere-index";
+    @GetMapping("/edit/{id}")
+    public ModelAndView setToUpdateMatiere(@PathVariable("id") long id) {
+        ModelAndView model = new ModelAndView("matiere-index");
+        model.addObject("isEdit", true);
+        model.addObject("materialId", id);
+        model.addObject("matiereModel", matiereRepository.findById(id));
+        model.addObject("matierelist", matiereRepository.findAll());
+        return model;
     }
 
     @PostMapping("/update/{id}")
@@ -55,12 +58,12 @@ public class MatiereController {
             Model model) {
         if (result.hasErrors()) {
             matiere.setId(id);
+            model.addAttribute("matiereModel", matiereRepository.findById(id));
         } else {
             matiereRepository.save(matiere);
-
+            model.addAttribute("matiereModel", new Matiere());
         }
         // return "matiere-index";
-        // model.addAttribute("matiereModel", matiereRepository.findById(id));
         model.addAttribute("matierelist", matiereRepository.findAll());
         return "matiere-index";
     }
@@ -70,6 +73,7 @@ public class MatiereController {
         Matiere matiere = matiereRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid matiere Id:" + id));
         matiereRepository.delete(matiere);
+        model.addAttribute("matiereModel", new Matiere());
         model.addAttribute("matierelist", matiereRepository.findAll());
         return "matiere-index";
     }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Home</title>
+    <title>Absence Manager</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -21,13 +21,13 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="#">Absence</a>
+            <a class="navbar-brand" href="/">Absence</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="/student/">Etudiants</a>
@@ -38,15 +38,51 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/matiere/" tabindex="-1" aria-disabled="true">Matieres</a>
                 </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            </ul> 
         </div>
     </nav>
-    <div class="container">
-    </div>
+    <main class="main" style="top: -5px;">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">Welcome, to Absence Manager!</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, quia, totam eveniet voluptatem
+                    aperiam quibusdam quisquam assumenda magni voluptas labore incidunt quis cumque ea, rem ipsam autem
+                    fuga error obcaecati!.</p>
+                <p><a class="btn btn-primary btn-lg" href="#" role="button">View Absences &raquo;</a></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Students</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="/student/" role="button">View Students &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Classes</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+                        magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="/groupe/" role="button">View Classes &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Matieres</h2>
+                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id
+                        ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                        condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                    <p><a class="btn btn-secondary" href="/matiere/" role="button">View Matieres &raquo;</a></p>
+                </div>
+            </div>
+
+            <hr>
+
+        </div> <!-- /container -->
+
+    </main>
 </body>
 
 </html>
