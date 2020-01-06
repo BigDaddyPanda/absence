@@ -36,7 +36,7 @@
                     <a class="nav-link" href="/student/">Students</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/groupe/">Groupes</a>
+                    <a class="nav-link" href="/classe/">Classes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/matiere/" tabindex="-1" aria-disabled="true">Matiere</a>
@@ -64,11 +64,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">Groupe/Classe</label>
+                                <label for="inputName" class="col-sm-2 control-label">Classe/Classe</label>
                                 <div class="col-sm-10">
                                     <select class="form-control" th:field="*{studentClasse}">
-                                        <option th:each="s: ${groupelist}" th:value="${s.id}"
-                                            th:text="${s.label+' ('+s.nomComplet+')'}">groupelist</option>
+                                        <option th:each="s: ${classelist}" th:value="${s.id}"
+                                            th:text="${s.label+' ('+s.nomComplet+')'}">classelist</option>
                                     </select>
                                 </div>
                             </div>

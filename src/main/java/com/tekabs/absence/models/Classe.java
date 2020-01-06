@@ -17,11 +17,11 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Groupe {
+public class Classe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "groupe_id")
+    @Column(name = "classe_id")
     private Long id;
     private String label;
     private String nomComplet;
@@ -31,13 +31,13 @@ public class Groupe {
     private List<Student> classeStudents;
 
     @ManyToMany
-    @JoinTable(name = "classe_matiere", joinColumns = @JoinColumn(name = "groupe_id"), inverseJoinColumns = @JoinColumn(name = "matiere_id"))
+    @JoinTable(name = "classe_matiere", joinColumns = @JoinColumn(name = "classe_id"), inverseJoinColumns = @JoinColumn(name = "matiere_id"))
     private List<Matiere> classeMatieres;
 
-    public Groupe() {
+    public Classe() {
     }
 
-    public Groupe(Long id, String label, String nomComplet, List<Student> classeStudents,
+    public Classe(Long id, String label, String nomComplet, List<Student> classeStudents,
             List<Matiere> classeMatieres) {
         this.id = id;
         this.label = label;
@@ -86,27 +86,27 @@ public class Groupe {
         this.classeMatieres = classeMatieres;
     }
 
-    public Groupe id(Long id) {
+    public Classe id(Long id) {
         this.id = id;
         return this;
     }
 
-    public Groupe label(String label) {
+    public Classe label(String label) {
         this.label = label;
         return this;
     }
 
-    public Groupe nomComplet(String nomComplet) {
+    public Classe nomComplet(String nomComplet) {
         this.nomComplet = nomComplet;
         return this;
     }
 
-    public Groupe classeStudents(List<Student> classeStudents) {
+    public Classe classeStudents(List<Student> classeStudents) {
         this.classeStudents = classeStudents;
         return this;
     }
 
-    public Groupe classeMatieres(List<Matiere> classeMatieres) {
+    public Classe classeMatieres(List<Matiere> classeMatieres) {
         this.classeMatieres = classeMatieres;
         return this;
     }
@@ -115,14 +115,14 @@ public class Groupe {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Groupe)) {
+        if (!(o instanceof Classe)) {
             return false;
         }
-        Groupe groupe = (Groupe) o;
-        return Objects.equals(id, groupe.id) && Objects.equals(label, groupe.label)
-                && Objects.equals(nomComplet, groupe.nomComplet)
-                && Objects.equals(classeStudents, groupe.classeStudents)
-                && Objects.equals(classeMatieres, groupe.classeMatieres);
+        Classe classe = (Classe) o;
+        return Objects.equals(id, classe.id) && Objects.equals(label, classe.label)
+                && Objects.equals(nomComplet, classe.nomComplet)
+                && Objects.equals(classeStudents, classe.classeStudents)
+                && Objects.equals(classeMatieres, classe.classeMatieres);
     }
 
     @Override

@@ -36,7 +36,7 @@
                     <a class="nav-link" href="/student/">Students</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/groupe/">Groupes</a>
+                    <a class="nav-link" href="/classe/">Classes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/matiere/" tabindex="-1" aria-disabled="true">Matiere</a>
@@ -49,7 +49,7 @@
             <div class="offset-md-2 col-md-8">
                 <div class="panel panel-default" th:fragment="listUserData" id="listUserData">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Matieres du Groupe <span th:text="${groupInfo.label}"></span></h3>
+                        <h3 class="panel-title">Matieres du Classe <span th:text="${classeInfo.label}"></span></h3>
                     </div>
                     <div class="panel-body">
                         <div class="table">
@@ -58,12 +58,23 @@
                                     <tr>
                                         <th>Label Matiere</th>
                                         <th size="width:30%">Nombre Heure</th>
+                                        <th class="text-center" style="width: 30%;">Create Nv Liste Absence</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="matiere : ${groupInfo.classeMatieres}">
+                                    <tr th:each="matiere : ${classeInfo.classeMatieres}">
                                         <td th:text="${matiere.label}">label</td>
                                         <td th:text="${matiere.nombreHeure}">nbrheure</td>
+                                        <td>
+                                            <div class="row justify-content-around" role="group"
+                                                aria-label="Basic example">
+                                                <a th:href="@{/absence/classe/{id}/matiere/{mat}(id=${classeInfo.id},mat=${matiere.id})}">
+                                                    <i class="material-icons">
+                                                        assignment
+                                                    </i>
+                                                </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -79,7 +90,7 @@
             <div class="offset-md-2 col-md-8">
                 <div class="panel panel-default" th:fragment="listUserData" id="listUserData">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Groupe Students</h3>
+                        <h3 class="panel-title">Classe Students</h3>
                     </div>
                     <div class="panel-body">
                         <div class="table">
@@ -88,17 +99,17 @@
                                     <tr>
                                         <th>Nom Prenom</th>
                                         <th>Email</th>
-                                        <th class="text-center" style="width: 30%;">Action</th>
+                                        <th class="text-center" style="width: 30%;">Voir Absence</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="student : ${groupInfo.classeStudents}">
+                                    <tr th:each="student : ${classeInfo.classeStudents}">
                                         <td th:text="${student.name+' '+student.prenom}">id</td>
                                         <td th:text="${student.email}">email</td>
                                         <td>
                                             <div class="row justify-content-around" role="group"
                                                 aria-label="Basic example">
-                                                <a th:href="@{/groupe/absence/{id}(id=${student.matricule})}">
+                                                <a th:href="@{/absence/student/{id}(id=${student.matricule})}">
                                                     <i class="material-icons">
                                                         contact_support
                                                     </i>
@@ -116,7 +127,7 @@
 
         </div>
     </div>
-    
+
     <script>
         $(document).ready(function () {
             $('#dtbl').DataTable();

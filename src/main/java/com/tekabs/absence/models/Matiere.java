@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Matiere {
@@ -20,16 +21,20 @@ public class Matiere {
     private float nombreHeure;
 
     @ManyToMany(mappedBy = "classeMatieres")
-    private List<Groupe> matiereClasses;
+    private List<Classe> matiereClasses;
+
+    @OneToMany(mappedBy = "matiere")
+    private List<Absence> listeAppel;
 
     public Matiere() {
     }
 
-    public Matiere(long id, String label, float nombreHeure, List<Groupe> matiereClasses) {
+    public Matiere(long id, String label, float nombreHeure, List<Classe> matiereClasses, List<Absence> listeAppel) {
         this.id = id;
         this.label = label;
         this.nombreHeure = nombreHeure;
         this.matiereClasses = matiereClasses;
+        this.listeAppel = listeAppel;
     }
 
     public long getId() {
@@ -56,12 +61,20 @@ public class Matiere {
         this.nombreHeure = nombreHeure;
     }
 
-    public List<Groupe> getMatiereClasses() {
+    public List<Classe> getMatiereClasses() {
         return this.matiereClasses;
     }
 
-    public void setMatiereClasses(List<Groupe> matiereClasses) {
+    public void setMatiereClasses(List<Classe> matiereClasses) {
         this.matiereClasses = matiereClasses;
+    }
+
+    public List<Absence> getListeAppel() {
+        return this.listeAppel;
+    }
+
+    public void setListeAppel(List<Absence> listeAppel) {
+        this.listeAppel = listeAppel;
     }
 
     public Matiere id(long id) {
@@ -79,8 +92,13 @@ public class Matiere {
         return this;
     }
 
-    public Matiere matiereClasses(List<Groupe> matiereClasses) {
+    public Matiere matiereClasses(List<Classe> matiereClasses) {
         this.matiereClasses = matiereClasses;
+        return this;
+    }
+
+    public Matiere listeAppel(List<Absence> listeAppel) {
+        this.listeAppel = listeAppel;
         return this;
     }
 
@@ -92,19 +110,23 @@ public class Matiere {
             return false;
         }
         Matiere matiere = (Matiere) o;
-        return id == matiere.id && Objects.equals(label, matiere.label) && nombreHeure == matiere.nombreHeure
-                && Objects.equals(matiereClasses, matiere.matiereClasses);
+        return id == matiere.id && Objects.equals(label, matiere.label) && nombreHeure == matiere.nombreHeure && Objects.equals(matiereClasses, matiere.matiereClasses) && Objects.equals(listeAppel, matiere.listeAppel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, label, nombreHeure, matiereClasses);
+        return Objects.hash(id, label, nombreHeure, matiereClasses, listeAppel);
     }
 
     @Override
     public String toString() {
-        return "{" + " id='" + getId() + "'" + ", label='" + getLabel() + "'" + ", nombreHeure='" + getNombreHeure()
-                + "'" + ", matiereClasses='" + getMatiereClasses().size() + "'" + "}";
+        return "{" +
+            " id='" + getId() + "'" +
+            ", label='" + getLabel() + "'" +
+            ", nombreHeure='" + getNombreHeure() + "'" +
+            ", matiereClasses='" + getMatiereClasses() + "'" +
+            ", listeAppel='" + getListeAppel() + "'" +
+            "}";
     }
 
 }

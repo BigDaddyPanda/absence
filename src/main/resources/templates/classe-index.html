@@ -38,7 +38,7 @@
                     <a class="nav-link" href="/student/">Students</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/groupe/">Groupes</a>
+                    <a class="nav-link" href="/classe/">Classes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/matiere/" tabindex="-1" aria-disabled="true">Matiere</a>
@@ -52,13 +52,13 @@
             <div class="col-md-4">
                 <div class="panel panel-default" th:fragment="addUserData">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Add Groupe Data</h3>
+                        <h3 class="panel-title">Add Classe Data</h3>
                     </div>
                     <div class="panel-body">
                         <!-- ????????????????? -->
                         <form action="#"
-                            th:action="${isEdit}?@{/groupe/update/{id}(id=${groupId})}:@{/groupe/addgroupe}"
-                            th:object="${groupeModel}" method="post" class="form-horizontal" id="addUserForm">
+                            th:action="${isEdit}?@{/classe/update/{id}(id=${classeId})}:@{/classe/addclasse}"
+                            th:object="${classeModel}" method="post" class="form-horizontal" id="addUserForm">
                             <div class="form-group">
                                 <label for="inputName" class="col-sm-2 control-label">Label</label>
                                 <div class="col-sm-10">
@@ -101,7 +101,7 @@
 
                 <div class="panel panel-default" th:fragment="listUserData" id="listUserData">
                     <div class="panel-heading">
-                        <h3 class="panel-title">List Groupes Data</h3>
+                        <h3 class="panel-title">List Classes Data</h3>
                     </div>
                     <div class="panel-body">
                         <div class="table">
@@ -116,24 +116,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="groupe : ${groupelist}">
-                                        <td th:text="${groupe.id}">id</td>
-                                        <td th:text="${groupe.label}">label</td>
-                                        <td th:text="${groupe.nomComplet}">nomComplet</td>
-                                        <td th:text="${#lists.size(groupe.classeMatieres)}">nomComplet</td>
-                                        <td th:action="@{/groupe/addgroupe}">
+                                    <tr th:each="classe : ${classelist}">
+                                        <td th:text="${classe.id}">id</td>
+                                        <td th:text="${classe.label}">label</td>
+                                        <td th:text="${classe.nomComplet}">nomComplet</td>
+                                        <td th:text="${#lists.size(classe.classeMatieres)}">nomComplet</td>
+                                        <td th:action="@{/classe/addclasse}">
                                             <div class="row justify-content-around" role="group"
                                                 aria-label="Basic example">
-                                                <a th:href="@{/groupe/edit/{id}(id=${groupe.id})}">
+                                                <a th:href="@{/classe/edit/{id}(id=${classe.id})}">
                                                     <i class="material-icons">
                                                         edit
                                                     </i>
                                                 </a>
-                                                <a th:href="@{/groupe/delete/{id}(id=${groupe.id})}">
+                                                <a th:href="@{/classe/delete/{id}(id=${classe.id})}">
                                                     <i class="text-danger material-icons">
                                                         delete
                                                     </i></a>
-                                                <a th:href="@{/groupe/group-students/{id}(id=${groupe.id})}">
+                                                <a th:href="@{/classe/classe-students/{id}(id=${classe.id})}">
                                                     <i class="material-icons">
                                                         open_in_new
                                                     </i>

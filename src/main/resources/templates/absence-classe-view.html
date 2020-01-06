@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Absence Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="/">Absence</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/student/">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/classe/">Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/matiere/" tabindex="-1" aria-disabled="true">Matiere</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-md-8">
+                <div class="panel panel-default" th:fragment="listUserData" id="listUserData">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Liste d'Absence <span th:text="${classeEtudiant.label}"></span> -
+                            Matiere <span th:text="${matiere.label}"></span> </h3>
+                        <!-- <span th:text="${classeInfo.label}"></span> -->
+                    </div>
+                    <div class="panel-body">
+                        <div class="table">
+                            <form action="#"
+                                th:action="@{/absence/save}"
+                                th:object="${absenceUtil}" method="post">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="inputName" class="control-label">Date
+                                                d'Enregistrement</label>
+                                            <div class="">
+                                                <input type="date" class="form-control" id="inputName" placeholder="Nom"
+                                                    th:field="*{dateEnregistrement}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="offset-8 col-4">
+                                            <button type="submit" class="btn text-uppercase btn-primary btn-block"
+                                                id="btnAddUser">
+                                                submit </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th class="text-center" size="width:30%">Coucher pour Marquer Absent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="absence,itemStat : *{listeAbsence}">
+                                            <td th:text="${absence.student.name}">label</td>
+                                            <td th:text="${absence.student.prenom}">label</td>
+                                            <td>
+                                                <div class="row justify-content-around" role="group"
+                                                    aria-label="Basic example">
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="hidden" name="active"
+                                                            th:field="*{listeAbsence[__${itemStat.index}__].student}" 
+                                                            th:value="*{listeAbsence[__${itemStat.index}__].student}" 
+                                                            />
+                                                        <input type="hidden" name="active"
+                                                            th:field="*{listeAbsence[__${itemStat.index}__].matiere}" 
+                                                            th:value="*{listeAbsence[__${itemStat.index}__].matiere}" 
+                                                            />
+                                                        <input type="checkbox" name="active"
+                                                            th:field="*{listeAbsence[__${itemStat.index}__].estAbsent}" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#dtbl').DataTable();
+        });
+    </script>
+</body>
+
+</html>

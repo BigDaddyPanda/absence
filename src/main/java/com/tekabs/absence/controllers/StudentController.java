@@ -1,7 +1,7 @@
 package com.tekabs.absence.controllers;
 
 import com.tekabs.absence.models.Student;
-import com.tekabs.absence.repositories.GroupeRepository;
+import com.tekabs.absence.repositories.ClasseRepository;
 import com.tekabs.absence.repositories.StudentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +22,14 @@ public class StudentController {
     @Autowired
     StudentRepository studentRepository;
     @Autowired
-    GroupeRepository groupeRepository;
+    ClasseRepository classeRepository;
 
     @GetMapping(path = "/")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("student-index");
         mv.addObject("studentModel", new Student());
         mv.addObject("studentlist", studentRepository.findAll());
-        mv.addObject("groupelist", groupeRepository.findAll());
+        mv.addObject("classelist", classeRepository.findAll());
         return mv;
         // return studentRepository.findAll();
     }
@@ -42,7 +42,7 @@ public class StudentController {
         }
         studentRepository.save(student);
         model.addAttribute("studentlist", studentRepository.findAll());
-        model.addAttribute("groupelist", groupeRepository.findAll());
+        model.addAttribute("classelist", classeRepository.findAll());
         return "student-index";
     }
 
@@ -51,7 +51,7 @@ public class StudentController {
         ModelAndView model = new ModelAndView("student-index");
         model.addObject("isEdit", true);
         model.addObject("studentId", id);
-        model.addObject("groupelist", groupeRepository.findAll());
+        model.addObject("classelist", classeRepository.findAll());
         model.addObject("studentModel", studentRepository.findById(id));
         model.addObject("studentlist", studentRepository.findAll());
         return model;
@@ -66,7 +66,7 @@ public class StudentController {
             return "student-index";
         }
         studentRepository.save(student);
-        model.addAttribute("groupelist", groupeRepository.findAll());
+        model.addAttribute("classelist", classeRepository.findAll());
         model.addAttribute("studentModel", new Student());
         model.addAttribute("studentlist", studentRepository.findAll());
         return "student-index";
@@ -78,7 +78,7 @@ public class StudentController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + matricule));
         studentRepository.delete(student);
         model.addAttribute("studentModel", new Student());
-        model.addAttribute("groupelist", groupeRepository.findAll());
+        model.addAttribute("classelist", classeRepository.findAll());
         model.addAttribute("studentlist", studentRepository.findAll());
         return "student-index";
     }
